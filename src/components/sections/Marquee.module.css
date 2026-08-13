@@ -1,0 +1,28 @@
+.band {
+  background: var(--signal);
+  color: var(--ink);
+  overflow: hidden;
+  padding: 15px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.track {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: pmarquee 30s linear infinite;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(18px, 2.1vw, 30px);
+  letter-spacing: -0.01em;
+}
+
+.track span {
+  white-space: pre;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+}
