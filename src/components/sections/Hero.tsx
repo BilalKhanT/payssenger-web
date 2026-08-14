@@ -1,47 +1,158 @@
-import { HeroCanvas } from "@/components/ui/HeroCanvas";
-import { PhoneMock } from "@/components/ui/PhoneMock";
-import { Reveal } from "@/components/ui/Reveal";
-import { MagneticLink } from "@/components/ui/MagneticLink";
+"use client";
+
+import { useChrome } from "@/components/providers/ChromeProvider";
+import { useParallax } from "@/hooks/useParallax";
+import { useFitText } from "@/hooks/useFitText";
+import { useCarousel } from "@/hooks/useCarousel";
+import { Header } from "@/components/layout/Header";
+import { Words } from "@/components/ui/reveal/Words";
+import { StackedLines } from "@/components/ui/reveal/StackedLines";
+import { Inview } from "@/components/ui/reveal/Inview";
+import { CarouselDots } from "@/components/ui/CarouselDots";
 import styles from "./Hero.module.css";
 
-/** Full-viewport hero with WebGL backdrop and the floating phone demo. */
+const FEATURES = [
+  {
+    img: "/images/hands.jpg",
+    label: "Send money",
+    title: "To anyone, instantly",
+    cta: "See how",
+    alt: "Hands holding a phone completing a payment with no signal",
+  },
+  {
+    img: "/images/shopkeeper.jpg",
+    label: "Pay bills",
+    title: "Utilities & more",
+    cta: "Explore",
+    alt: "Shopkeeper paying a bill on a phone in a market",
+  },
+  {
+    img: "/images/village.jpg",
+    label: "Top up",
+    title: "Airtime & data",
+    cta: "Learn more",
+    alt: "Person on a rooftop in a remote village using a phone",
+  },
+];
+
+const AVATAR_COLORS = ["#5790e6", "#c2e029", "#0b6e97", "#ffffff"];
+
 export function Hero() {
+  const { ready } = useChrome();
+  const { container, target } = useParallax<HTMLElement, HTMLDivElement>(0, 12);
+  const { containerRef: titleFitRef, textRef: titleRef } = useFitText<
+    HTMLDivElement,
+    HTMLHeadingElement
+  >();
+  const { index, setIndex } = useCarousel(FEATURES.length, {
+    interval: 3800,
+    playing: ready,
+  });
+
+  const feature = FEATURES[index];
+
   return (
-    <header id="top" className={styles.hero}>
-      <HeroCanvas />
-      <div className={styles.vignette} />
-
-      <div className={styles.inner}>
-        <div className={styles.copy}>
-          <Reveal as="div" y={28} duration={0.9} className={styles.eyebrow}>
-            Offline-first digital banking
-          </Reveal>
-          <Reveal as="h1" delay={90} y={28} duration={0.9} className={styles.title}>
-            Banking that works
-            <br />
-            when the signal <span className={styles.accent}>doesn&apos;t.</span>
-          </Reveal>
-          <Reveal as="p" delay={180} y={28} duration={0.9} className={styles.lead}>
-            When the internet drops, Payssenger keeps your bank in your pocket —
-            sending signed, bank-verified payments over SMS. Same app, same
-            screens, no data required.
-          </Reveal>
-          <Reveal delay={270} y={28} duration={0.9} className={styles.actions}>
-            <MagneticLink href="#cta" className={styles.primary}>
-              Get early access
-            </MagneticLink>
-            <a href="#how" className={styles.secondary}>
-              See how it works →
-            </a>
-          </Reveal>
+    <section id="top" ref={container} className={styles.hero}>
+      <div className={styles.plateWrap}>
+        <div ref={target} className={styles.plate}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/hero.jpg"
+            alt="Woman on a rural mountain road at dusk using her phone"
+            className={styles.plateImg}
+            fetchPriority="high"
+          />
         </div>
+        <div className={styles.overlay} />
+      </div>
 
-        <Reveal delay={220} y={44} duration={1} className={styles.phoneWrap}>
-          <PhoneMock />
-        </Reveal>
+      <Header />
+
+      <div ref={titleFitRef} className={styles.titleWrap}>
+        <h1 ref={titleRef} className={styles.title}>
+          <Words
+            text="No Signal Needed"
+            play={ready}
+            stagger={140}
+            duration={1100}
+          />
+        </h1>
+      </div>
+
+      <div className={styles.bottom}>
+        <StackedLines
+          className={styles.tagline}
+          lines={["Your Bank,", "Always On"]}
+          play={ready}
+          baseDelay={350}
+          stagger={110}
+          duration={900}
+        />
+
+        <div className={styles.cluster}>
+          <Inview
+            className={styles.slider}
+            delayIn={650}
+            y={28}
+            duration={900}
+          >
+            <div key={index} className={styles.featureCard}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={feature.img}
+                alt={feature.alt}
+                className={styles.featureImg}
+                loading="lazy"
+              />
+              <div className={styles.featureBody}>
+                <span className={styles.featureLabel}>{feature.label}</span>
+                <span className={styles.featureTitle}>{feature.title}</span>
+                <span className={styles.featureCta}>{feature.cta} →</span>
+              </div>
+            </div>
+            <CarouselDots
+              count={FEATURES.length}
+              active={index}
+              onSelect={setIndex}
+              tone="light"
+              label="feature"
+            />
+          </Inview>
+
+          <Inview
+            as="article"
+            className={styles.statCard}
+            delayIn={780}
+            y={28}
+            duration={900}
+          >
+            <div className={styles.statLeft}>
+              <span className={styles.statValue}>1st</span>
+              <div className={styles.avatars}>
+                {AVATAR_COLORS.map((color, i) => (
+                  <span
+                    key={i}
+                    className={styles.avatar}
+                    style={{ background: color }}
+                  />
+                ))}
+              </div>
+              <span className={styles.statCaption}>
+                Offline bank in Pakistan
+              </span>
+            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/farmer.jpg"
+              alt="Farmer in a field using a phone"
+              className={styles.statImg}
+              loading="lazy"
+            />
+          </Inview>
+        </div>
       </div>
 
       <div className={styles.scrollHint}>SCROLL ↓</div>
-    </header>
+    </section>
   );
 }

@@ -1,129 +1,266 @@
 .hero {
   position: relative;
-  min-height: 100vh;
-  background: var(--ink);
-  color: #fff;
+  isolation: isolate;
   overflow: hidden;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  height: calc(100svh - 1rem);
+  min-height: 36rem;
+  border-radius: var(--radius-card-lg);
+  background: var(--brand-deep);
+  color: #fff;
 }
 
-.vignette {
+@media (min-width: 640px) {
+  .hero {
+    height: calc(100svh - 1.5rem);
+  }
+}
+
+.plateWrap {
   position: absolute;
   inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background: radial-gradient(
-    130% 100% at 72% 42%,
-    transparent 38%,
-    rgba(9, 7, 14, 0.72) 100%
+  z-index: -10;
+}
+
+.plate {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -16%;
+  height: 132%;
+  width: 100%;
+  will-change: transform;
+}
+
+.plateImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(15, 47, 99, 0.65),
+    rgba(15, 47, 99, 0.35),
+    rgba(15, 47, 99, 0.75)
   );
 }
 
-.inner {
+.titleWrap {
   position: relative;
   z-index: 2;
-  width: 100%;
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 130px var(--gutter) 90px;
-  display: grid;
-  grid-template-columns: 1.12fr 0.88fr;
-  gap: 48px;
-  align-items: center;
+  padding: 1rem 1.5rem 0;
 }
 
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--signal);
-  margin-bottom: 26px;
+@media (min-width: 640px) {
+  .titleWrap {
+    padding: 1rem 2.5rem 0;
+  }
 }
 
 .title {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(44px, 6.6vw, 94px);
-  line-height: 0.97;
-  letter-spacing: -0.035em;
-  margin: 0 0 28px;
-}
-
-.accent {
-  color: var(--signal);
-}
-
-.lead {
-  max-width: 530px;
-  font-family: var(--font-body);
-  font-size: clamp(17px, 1.4vw, 20px);
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.66);
-  margin: 0 0 42px;
-}
-
-.actions {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.primary {
   display: inline-block;
-  background: var(--signal);
-  color: #fff;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 16px;
-  padding: 16px 30px;
-  border-radius: 100px;
-  box-shadow: 0 22px 55px -18px var(--signal);
-  transition: transform 0.2s ease;
-}
-
-.secondary {
-  display: inline-block;
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.24);
-  font-family: var(--font-display);
+  /* Fallback size; useFitText overrides this to fill the width exactly. */
+  font-size: 11vw;
   font-weight: 500;
-  font-size: 16px;
-  padding: 16px 26px;
-  border-radius: 100px;
-  transition: border-color 0.3s ease;
+  text-transform: uppercase;
+  line-height: 0.85;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
 }
 
-.secondary:hover {
-  color: #fff;
-  border-color: rgba(255, 255, 255, 0.5);
+.bottom {
+  position: relative;
+  z-index: 2;
+  margin-top: auto;
+  padding: 0 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-.phoneWrap {
-  justify-self: center;
+@media (min-width: 640px) {
+  .bottom {
+    padding: 0 2.5rem 2.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+}
+
+.tagline {
+  display: block;
+  font-size: 2.4rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.cluster {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+/* Feature slider */
+.slider {
+  display: none;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 16rem;
+}
+
+@media (min-width: 768px) {
+  .slider {
+    display: flex;
+  }
+}
+
+.featureCard {
+  display: flex;
+  gap: 0.75rem;
+  border-radius: var(--radius-card);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.75rem;
+  box-shadow: 0 20px 40px -24px rgba(15, 47, 99, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: cardEnter 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.featureImg {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: var(--radius-xl);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.featureBody {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.featureLabel {
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.featureTitle {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.featureCta {
+  font-size: 0.65rem;
+  text-decoration: underline;
+  color: var(--brand-light);
+}
+
+/* Stat card */
+.statCard {
+  display: flex;
+  gap: 0.75rem;
+  align-items: stretch;
+  width: 100%;
+  max-width: 20rem;
+  border-radius: var(--radius-card);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.75rem;
+  box-shadow: 0 20px 40px -24px rgba(15, 47, 99, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+@media (min-width: 768px) {
+  .statCard {
+    max-width: 15rem;
+  }
+}
+
+.statLeft {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.statValue {
+  font-size: 1.875rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.avatars {
+  display: flex;
+}
+
+.avatar {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(15, 47, 99, 0.4);
+}
+
+.avatar:not(:first-child) {
+  margin-left: -0.5rem;
+}
+
+.statCaption {
+  font-size: 0.65rem;
+  opacity: 0.8;
+}
+
+.statImg {
+  width: 4rem;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius-xl);
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
 .scrollHint {
   position: absolute;
-  bottom: 26px;
-  left: var(--gutter);
+  bottom: 1.5rem;
+  left: 1.5rem;
   z-index: 2;
-  font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 0.7rem;
   letter-spacing: 0.22em;
   color: rgba(255, 255, 255, 0.42);
 }
 
-@media (max-width: 900px) {
-  .inner {
-    grid-template-columns: 1fr;
-    gap: 56px;
-    padding-top: 120px;
+@media (min-width: 640px) {
+  .scrollHint {
+    left: 2.5rem;
   }
+}
 
-  .phoneWrap {
-    order: -1;
+@keyframes cardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }

@@ -1,0 +1,56 @@
+.button {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-pill);
+  transition:
+    background 0.4s ease,
+    border-color 0.4s ease,
+    color 0.4s ease;
+}
+
+@media (min-width: 640px) {
+  .button {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+}
+
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.flip {
+  transform: scaleX(-1);
+}
+
+.outline {
+  border: 1px solid var(--hairline);
+  background: transparent;
+  color: var(--ink);
+}
+
+.solid {
+  background: var(--ink);
+  border: 1px solid var(--ink);
+  color: #fff;
+}
+
+@media (min-width: 769px) {
+  .button:hover .icon {
+    transform: scale(1.15);
+  }
+  .button:hover .flip {
+    transform: scale(1.15) scaleX(-1);
+  }
+  .outline:hover {
+    border-color: var(--ink);
+  }
+  .solid:hover {
+    background: var(--brand-deep);
+    border-color: var(--brand-deep);
+  }
+}

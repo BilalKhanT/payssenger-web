@@ -1,0 +1,57 @@
+/* Clip-mask word / line reveal */
+.clip {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.14em;
+}
+
+.clipWord {
+  padding-bottom: 0.12em;
+}
+
+.inner {
+  display: inline-block;
+  transform: translateY(115%);
+  opacity: 0;
+  transition-property: transform, opacity;
+  transition-timing-function: var(--reveal-ease);
+  transition-duration: var(--reveal-duration);
+  transition-delay: var(--reveal-delay);
+  will-change: transform, opacity;
+}
+
+.play .inner {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Fade + rise word variant (no clip) */
+.fadeWord {
+  display: inline-block;
+  transform: translateY(var(--fade-y, 18px));
+  opacity: 0;
+  transition-property: transform, opacity;
+  transition-timing-function: var(--reveal-ease);
+  transition-duration: var(--reveal-duration);
+  transition-delay: var(--reveal-delay);
+  will-change: transform, opacity;
+}
+
+.play .fadeWord {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.line {
+  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inner,
+  .fadeWord {
+    transform: none;
+    opacity: 1;
+    transition: none;
+  }
+}

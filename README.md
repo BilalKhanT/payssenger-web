@@ -1,67 +1,86 @@
 # Payssenger
 
-Marketing site for **Payssenger** — offline-first digital banking. When the
-internet drops, Payssenger keeps banking working by sending signed,
-bank-verified payments over SMS.
+Marketing site for **Payssenger — Pakistan's first offline bank**. Send money,
+pay bills and top up anywhere, even with no internet or signal.
 
-Built with the Next.js App Router, TypeScript, CSS Modules, Three.js (hero
-particle network), and [Lenis](https://github.com/darkroomengineering/lenis)
-for buttery, momentum-based smooth scrolling.
+Built with the Next.js App Router, TypeScript and CSS Modules in an editorial
+"navy" design language: an adaptive rem-based layout, an intro loader, oversized
+word-reveal headlines, ghost-word carousels, spring motion, and
+[Lenis](https://github.com/darkroomengineering/lenis) smooth scrolling.
 
 ## Getting started
 
 ```bash
 npm install
-npm run dev
+npm run dev        # http://localhost:3000
 ```
-
-Open [http://localhost:3000](http://localhost:3000).
 
 ## Scripts
 
-| Script              | Description                          |
-| ------------------- | ------------------------------------ |
-| `npm run dev`       | Start the dev server                 |
-| `npm run build`     | Production build                     |
-| `npm run start`     | Serve the production build           |
-| `npm run lint`      | Run ESLint                           |
-| `npm run typecheck` | Type-check without emitting          |
+| Script              | Description                 |
+| ------------------- | --------------------------- |
+| `npm run dev`       | Start the dev server        |
+| `npm run build`     | Production build            |
+| `npm run start`     | Serve the production build  |
+| `npm run lint`      | Run ESLint                  |
+| `npm run typecheck` | Type-check without emitting |
 
-## Project structure
+## Structure
 
 ```
 src/
-├── app/
-│   ├── globals.css          # Design tokens, base styles, keyframes
-│   ├── layout.tsx           # Fonts + SmoothScroll provider
-│   └── page.tsx             # Section composition
+├── app/                     globals.css (tokens + adaptive rem), layout, page
 ├── components/
-│   ├── layout/              # Navbar, Footer
-│   ├── providers/           # SmoothScroll (Lenis)
-│   ├── sections/            # Hero, Marquee, Problem, HowItWorks,
-│   │                        #   Security, Statement, Stats, CTA
-│   └── ui/                  # Reveal, Counter, MagneticLink,
-│                            #   HeroCanvas, PhoneMock
-├── hooks/                   # useInView, useMagnetic
-└── lib/
-    └── heroNetwork.ts       # Three.js hero animation
+│   ├── providers/           SmoothScroll (Lenis), ChromeProvider, AdaptiveRoot
+│   ├── overlays/            Loader, MenuOverlay, ContactModal
+│   ├── layout/              Header, Footer
+│   ├── sections/            Hero, Trust, Actions, Coverage, Stats, Stories
+│   └── ui/                  reveal/ (Words, StackedLines, Inview), Eyebrow,
+│                            PillButton, ArrowButton, CarouselDots, BrandMark
+├── hooks/                   useInView, useParallax, useCarousel, useFitText
+└── lib/                     easings
+public/images/               AI-generated editorial photography
 ```
 
 ## Design system
 
-| Token       | Value     | Usage                      |
-| ----------- | --------- | -------------------------- |
-| `--ink`     | `#1a3c58` | Dark surfaces, text        |
-| `--bg`      | `#eef1f6` | Page background            |
-| `--paper`   | `#ffffff` | Cards                      |
-| `--muted`   | `#5f6f80` | Secondary text             |
-| `--signal`  | `#3e9be0` | Primary accent             |
-| `--wire`    | `#8fc9ef` | Light accent               |
+| Token          | Value     | Usage                       |
+| -------------- | --------- | --------------------------- |
+| `--brand-deep` | `#0f2f63` | Hero / stats / footer navy  |
+| `--brand`      | `#2563c9` | Primary royal blue          |
+| `--brand-light`| `#5790e6` | Light accent / focus ring   |
+| `--accent-teal`| `#0b6e97` | Caption tint                |
+| `--surface`    | `#f4f4f4` | Off-white sections          |
+| `--ink`        | `#0a0a0a` | Headings                    |
+| `--ink-soft`   | `#717784` | Muted body                  |
+| `--ghost`      | `#d7dae1` | Oversized ghost text        |
 
-Fonts: **Space Grotesk** (display), **Hanken Grotesk** (body),
-**Space Mono** (labels) — loaded via `next/font/google`.
+Font: **Onest** (weights 400 / 500) via `next/font`. The root font-size is
+recomputed from viewport width so the rem-based layout stays proportional at
+every size.
 
-## Accessibility & motion
+## SEO & AIO
 
-All animations (Lenis smooth scroll, reveals, marquee, the floating phone,
-and the WebGL hero) respect `prefers-reduced-motion`.
+- Full metadata (title/description, canonical, Open Graph + `public/og.jpg`,
+  Twitter card, robots, keywords) in `src/app/layout.tsx`, driven by
+  `src/lib/site.ts`.
+- JSON-LD structured data (Organization + WebSite + Service) via
+  `src/components/seo/StructuredData.tsx`.
+- `robots.txt`, `sitemap.xml` and `manifest.webmanifest` are generated by
+  `src/app/{robots,sitemap,manifest}.ts`. `robots.txt` explicitly welcomes AI
+  crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, …).
+- `public/llms.txt` describes the product for LLMs.
+- Favicon / app icons come from the brand mark: `src/app/icon.svg`,
+  `src/app/apple-icon.png`, and `public/icon-{192,512}.png`.
+- **Set the production URL** with `NEXT_PUBLIC_SITE_URL` (defaults to
+  `https://payssenger.com`) so canonical, sitemap, robots and OG URLs are correct.
+
+## Notes
+
+- The contact form is a local stub — wire it to a real waitlist endpoint in
+  `src/components/overlays/ContactModal.tsx`.
+- Hero photography lives in `public/images/` and can be swapped for real brand
+  photos (hero is 16:9; portraits are 3:4, cropped with `object-fit: cover`).
+- All motion respects `prefers-reduced-motion`.
+```
+

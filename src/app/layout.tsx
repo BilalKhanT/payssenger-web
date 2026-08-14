@@ -1,52 +1,79 @@
 import type { Metadata, Viewport } from "next";
-import { Hanken_Grotesk, Space_Grotesk, Space_Mono } from "next/font/google";
+import { Onest } from "next/font/google";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
+import { ChromeProvider } from "@/components/providers/ChromeProvider";
+import { AdaptiveRoot } from "@/components/providers/AdaptiveRoot";
+import { Loader } from "@/components/overlays/Loader";
+import { MenuOverlay } from "@/components/overlays/MenuOverlay";
+import { ContactModal } from "@/components/overlays/ContactModal";
+import { StructuredData } from "@/components/seo/StructuredData";
+import { SITE } from "@/lib/site";
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({
+const onest = Onest({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-space-grotesk",
-  display: "swap",
-});
-
-const hankenGrotesk = Hanken_Grotesk({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-hanken-grotesk",
-  display: "swap",
-});
-
-const spaceMono = Space_Mono({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-space-mono",
+  weight: ["400", "500"],
+  variable: "--font-onest",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Payssenger — Banking that works when the signal doesn't",
-  description:
-    "Offline-first digital banking. When the internet drops, Payssenger keeps your bank in your pocket — sending signed, bank-verified payments over SMS. Same app, same screens, no data required.",
-  keywords: [
-    "offline banking",
-    "SMS payments",
-    "digital banking",
-    "Payssenger",
-    "fintech",
-  ],
+  metadataBase: new URL(SITE.url),
+  title: {
+    default: SITE.title,
+    template: `%s · ${SITE.name}`,
+  },
+  description: SITE.description,
+  applicationName: SITE.name,
+  keywords: [...SITE.keywords],
+  authors: [{ name: SITE.name, url: SITE.url }],
+  creator: SITE.name,
+  publisher: SITE.name,
+  category: "finance",
+  alternates: {
+    canonical: "/",
+  },
+  manifest: "/manifest.webmanifest",
   openGraph: {
-    title: "Payssenger — Banking that works when the signal doesn't",
-    description:
-      "Offline-first digital banking. If your phone can text, it can bank.",
     type: "website",
+    siteName: SITE.name,
+    title: SITE.title,
+    description: SITE.description,
+    url: SITE.url,
+    locale: SITE.locale,
+    images: [
+      {
+        url: SITE.ogImage,
+        width: 1200,
+        height: 630,
+        alt: "Payssenger — Pakistan's first offline bank",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE.title,
+    description: SITE.description,
+    images: [SITE.ogImage],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#1a3c58",
+  viewportFit: "cover",
+  themeColor: SITE.themeColor,
 };
 
 export default function RootLayout({
@@ -55,12 +82,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      className={`${spaceGrotesk.variable} ${hankenGrotesk.variable} ${spaceMono.variable}`}
-    >
+    <html lang="en" className={onest.variable}>
       <body>
-        <SmoothScroll>{children}</SmoothScroll>
+        <StructuredData />
+        <SmoothScroll>
+          <ChromeProvider>
+            <AdaptiveRoot />
+            {children}
+            <MenuOverlay />
+            <ContactModal />
+            <Loader />
+          </ChromeProvider>
+        </SmoothScroll>
       </body>
     </html>
   );

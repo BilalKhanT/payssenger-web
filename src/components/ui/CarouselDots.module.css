@@ -1,0 +1,37 @@
+.dots {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.dotButton {
+  padding: 0.375rem;
+}
+
+.dot {
+  display: block;
+  height: 0.375rem;
+  width: 0.375rem;
+  border-radius: var(--radius-pill);
+  transition:
+    width 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.4s ease;
+}
+
+.dotActive {
+  width: 1.25rem;
+}
+
+.dark .dot {
+  background: var(--ghost);
+}
+.dark .dotActive {
+  background: var(--ink);
+}
+
+.light .dot {
+  background: rgba(255, 255, 255, 0.4);
+}
+.light .dotActive {
+  background: #fff;
+}

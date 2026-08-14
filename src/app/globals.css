@@ -1,98 +1,126 @@
 /* ------------------------------------------------------------------ *
- * Design tokens — mirrored 1:1 from the Payssenger reference design.
+ * Payssenger design system — "editorial navy" language.
+ * Palette, radii, type, page frame, and the adaptive rem grid.
  * ------------------------------------------------------------------ */
 :root {
   /* Palette */
-  --ink: #1a3c58;
-  --bg: #eef1f6;
-  --paper: #ffffff;
-  --muted: #5f6f80;
-  --signal: #3e9be0;
-  --wire: #8fc9ef;
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --brand: #2563c9; /* royal blue */
+  --brand-deep: #0f2f63; /* deep navy — hero / stats / footer */
+  --brand-light: #5790e6; /* light blue accent / focus ring */
+  --accent-teal: #0b6e97;
+  --surface: #f4f4f4; /* off-white section bg */
+  --surface-card: #ffffff;
+  --ink: #0a0a0a; /* near-black headings */
+  --ink-soft: #717784; /* muted body */
+  --ghost: #d7dae1; /* oversized ghost text */
+  --hairline: #e6e8ec; /* subtle borders */
+  --on-brand: #ffffff; /* text on navy */
 
-  /* Type families (bound to next/font in layout.tsx) */
-  --font-display: var(--font-space-grotesk), sans-serif;
-  --font-body: var(--font-hanken-grotesk), sans-serif;
-  --font-mono: var(--font-space-mono), monospace;
+  /* Radii */
+  --radius-card: 1.5rem;
+  --radius-card-lg: 2rem;
+  --radius-pill: 62.5rem;
+  --radius-xl: 0.75rem;
 
-  /* Layout */
-  --max-width: 1300px;
-  --gutter: 6vw;
+  /* Type */
+  --font-sans: var(--font-onest), system-ui, sans-serif;
 }
 
-* {
+/* Reset */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+  margin: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand-light);
+  outline-offset: 2px;
 }
 
 html {
-  /* Native fallback; Lenis drives the buttery, delayed scroll on top. */
-  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+/* Adaptive rem grid — scale DOWN below the 1920 design width. */
+@media (max-width: 1920px) {
+  html {
+    font-size: 0.833333vw;
+  }
+}
+@media (max-width: 1440px) {
+  html {
+    font-size: 1.111111vw;
+  }
+}
+@media (max-width: 1024px) {
+  html {
+    font-size: 1.5625vw;
+  }
+}
+@media (max-width: 640px) {
+  html {
+    font-size: 4.444444vw;
+  }
 }
 
 body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--ink);
-  overflow-x: hidden;
-  font-family: var(--font-body);
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-::selection {
-  background: var(--signal);
-  color: #fff;
+/* Page frame — the inset that gives sections their rounded "card" framing. */
+main {
+  width: 100%;
+  overflow-x: clip;
+  padding: 0.5rem;
 }
 
-a {
-  color: var(--signal);
-  text-decoration: none;
+@media (min-width: 640px) {
+  main {
+    padding: 0.75rem;
+  }
 }
 
-a:hover {
-  color: var(--ink);
+/* Scroll lock applied while the loader / a modal / the menu is open. */
+html.is-locked {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
 }
 
-/* ------------------------------------------------------------------ *
- * Lenis smooth-scroll wiring.
- * ------------------------------------------------------------------ */
-html.lenis,
-html.lenis body {
-  height: auto;
-}
-
+/* Lenis wiring */
 .lenis.lenis-smooth {
   scroll-behavior: auto !important;
 }
-
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-
 .lenis.lenis-stopped {
   overflow: hidden;
-}
-
-/* ------------------------------------------------------------------ *
- * Shared keyframes.
- * ------------------------------------------------------------------ */
-@keyframes pmarquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-@keyframes pfloat {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

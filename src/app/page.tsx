@@ -1,27 +1,21 @@
-import { Navbar } from "@/components/layout/Navbar";
 import { Hero } from "@/components/sections/Hero";
-import { Marquee } from "@/components/sections/Marquee";
-import { Problem } from "@/components/sections/Problem";
-import { HowItWorks } from "@/components/sections/HowItWorks";
-import { Security } from "@/components/sections/Security";
-import { Statement } from "@/components/sections/Statement";
+import { Trust } from "@/components/sections/Trust";
+import { Actions } from "@/components/sections/Actions";
+import { Coverage } from "@/components/sections/Coverage";
 import { Stats } from "@/components/sections/Stats";
-import { CTA } from "@/components/sections/CTA";
+import { Stories } from "@/components/sections/Stories";
+import { Footer } from "@/components/layout/Footer";
 
 export default function Home() {
   return (
-    <>
-      <Navbar />
-      <main>
-        <Hero />
-        <Marquee />
-        <Problem />
-        <HowItWorks />
-        <Security />
-        <Statement />
-        <Stats />
-        <CTA />
-      </main>
-    </>
+    <main>
+      <Hero />
+      <Trust />
+      <Actions />
+      <Coverage />
+      <Stats />
+      <Stories />
+      <Footer />
+    </main>
   );
 }

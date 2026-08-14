@@ -1,0 +1,105 @@
+.header {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  padding: 1.5rem 1.5rem 0;
+  font-size: 0.75rem;
+  color: #fff;
+}
+
+@media (min-width: 640px) {
+  .header {
+    padding: 2rem 2.5rem 0;
+  }
+}
+
+.leftNav {
+  display: none;
+  flex: 1;
+  gap: 2rem;
+}
+
+.leftNav a {
+  color: rgba(255, 255, 255, 0.9);
+  transition: color 0.3s ease;
+}
+.leftNav a:hover {
+  color: #fff;
+}
+
+@media (min-width: 1024px) {
+  .leftNav {
+    display: flex;
+  }
+}
+
+.brand {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.mark {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .right {
+    gap: 1.25rem;
+  }
+}
+
+.bookLink {
+  display: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #fff;
+}
+.bookLink:hover {
+  text-decoration: underline;
+}
+
+@media (min-width: 640px) {
+  .bookLink {
+    display: inline;
+  }
+}
+
+.burger {
+  display: grid;
+  place-items: center;
+  gap: 5px;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background 0.3s ease;
+}
+.burger:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.burger span {
+  display: block;
+  width: 1rem;
+  height: 1px;
+  background: #fff;
+}

@@ -1,0 +1,85 @@
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: var(--brand-deep);
+  color: var(--on-brand);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  transform: translateY(0);
+  transition: transform var(--exit-ms) cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.exit {
+  transform: translateY(-105%);
+}
+
+.mark {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  animation: markIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.markIcon {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.wordmark {
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.track {
+  width: 10rem;
+  height: 1px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+}
+
+.fill {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: #fff;
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: fill 1280ms cubic-bezier(0.65, 0, 0.35, 1) 120ms forwards;
+}
+
+@keyframes markIn {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fill {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .curtain {
+    transition: none;
+  }
+  .mark {
+    animation: none;
+  }
+  .fill {
+    animation: none;
+    transform: scaleX(1);
+  }
+}

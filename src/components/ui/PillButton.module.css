@@ -1,0 +1,53 @@
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: var(--radius-pill);
+  padding: 0.875rem 1.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  transition:
+    background 0.4s var(--reveal-ease, ease),
+    color 0.4s ease,
+    border-color 0.4s ease;
+  --reveal-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.arrow {
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.light {
+  background: #fff;
+  color: var(--brand-deep);
+}
+.solid {
+  background: var(--ink);
+  color: #fff;
+}
+.outline {
+  border: 1px solid currentColor;
+  color: var(--ink);
+}
+
+@media (min-width: 769px) {
+  .pill:hover .arrow {
+    transform: translateX(5px);
+  }
+  .light:hover {
+    background: var(--brand-light);
+    color: #fff;
+  }
+  .solid:hover {
+    background: var(--brand-deep);
+  }
+  .outline:hover {
+    background: var(--ink);
+    color: #fff;
+  }
+}
