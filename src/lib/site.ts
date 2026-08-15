@@ -18,6 +18,7 @@ export const SITE = {
   phone: "+92 21 111 00 00 00",
   ogImage: "/og.jpg",
   themeColor: "#0f2f63",
+  gaId: process.env.NEXT_PUBLIC_GA_ID ?? "G-ZG54DCHWEV",
   social: {
     instagram: "https://instagram.com/payssenger",
     x: "https://x.com/payssenger",

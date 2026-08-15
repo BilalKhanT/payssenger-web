@@ -7,6 +7,7 @@ import { Loader } from "@/components/overlays/Loader";
 import { MenuOverlay } from "@/components/overlays/MenuOverlay";
 import { ContactModal } from "@/components/overlays/ContactModal";
 import { StructuredData } from "@/components/seo/StructuredData";
+import { Analytics } from "@/components/seo/Analytics";
 import { SITE } from "@/lib/site";
 import "./globals.css";
 
@@ -85,6 +86,7 @@ export default function RootLayout({
     <html lang="en" className={onest.variable}>
       <body>
         <StructuredData />
+        <Analytics />
         <SmoothScroll>
           <ChromeProvider>
             <AdaptiveRoot />
